@@ -8,7 +8,7 @@ Na pasta código conta os códigos utilizados para a criação do sistema
 
 Na pasta imagens consta fotos do sistema e da criação do sistema de voz assim como do aplicativo.
 
-O vídeo de funcionamento pode ser acessado pelo seguinte link:
+Na pasta vídeo consta um vídeo de funcionamento do dispositivo e esse vídeo também pode ser acessado pelo seguinte link:
 
 https://youtu.be/xHWaZHtvzFs
 
