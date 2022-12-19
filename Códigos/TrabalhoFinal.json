@@ -1,0 +1,944 @@
+[
+    {
+        "id": "9671b54b6cfc012b",
+        "type": "tab",
+        "label": "Trabalho_Final",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9a87f06d30fb34f7",
+        "type": "mqtt in",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "topic": "Tempdata",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "421bf6d3021adea9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 340,
+        "y": 260,
+        "wires": [
+            [
+                "d5cefe2ba806efdc",
+                "3c7604c6a3af9986"
+            ]
+        ]
+    },
+    {
+        "id": "d5cefe2ba806efdc",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "3c7604c6a3af9986",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Separate",
+        "func": "let str = msg.payload;\nlet parts = str.split(',');\nlet msg1 = {};\nmsg1.payload = parts[0];\nflow.set(\"TemperaturaSala\", parts[0]);\nlet msg2 = {};\nmsg2.payload = parts[1];\nflow.set(\"UmidadeSala\", parts[1]);\nreturn [msg1, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"TemperaturaSala\", \"0.00\")\nflow.set(\"UmidadeSala\", \"0.00\");",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "f85f36f6c4f32c52",
+                "eeee23c1c6045ec2",
+                "8fc0c175a816ab65"
+            ],
+            [
+                "bdd9e9a4830f9dd0",
+                "24cc4e47f107f2d8",
+                "9942e77cdc884513"
+            ]
+        ]
+    },
+    {
+        "id": "f85f36f6c4f32c52",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "bdd9e9a4830f9dd0",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "eeee23c1c6045ec2",
+        "type": "ui_gauge",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "group": "285a53ef32013db2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "ºC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b0b3",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8fc0c175a816ab65",
+        "type": "ui_chart",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "group": "285a53ef32013db2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatura/Tempo",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "40",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 860,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24cc4e47f107f2d8",
+        "type": "ui_gauge",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "group": "285a53ef32013db2",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidade",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#d5cf1a",
+            "#3de600",
+            "#3aaecb"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "9942e77cdc884513",
+        "type": "ui_chart",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "group": "285a53ef32013db2",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "label": "Humidade/Tempo",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0eb96c42a8834559",
+        "type": "wake-word",
+        "z": "9671b54b6cfc012b",
+        "wakeword": "0e03cb474a14c5c7",
+        "threshold": "0.49",
+        "averaging": false,
+        "inputProp": "payload",
+        "outputProp": "payload",
+        "controlProp": "control",
+        "passthrough": false,
+        "name": "",
+        "x": 560,
+        "y": 580,
+        "wires": [
+            [
+                "18161220ce780107",
+                "1dcdf373c367eff8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a7606901d30ac506",
+        "type": "sox-record",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "buttonStart": "msg",
+        "inputs": 1,
+        "inputSource": "default",
+        "manualSource": "",
+        "inputEncoding": "signed-integer",
+        "inputChannels": 1,
+        "inputRate": 16000,
+        "inputBits": 16,
+        "byteOrder": "-L",
+        "encoding": "signed-integer",
+        "channels": 1,
+        "rate": 16000,
+        "bits": 16,
+        "gain": "0",
+        "buffer": "4096",
+        "showDuration": false,
+        "durationType": "forever",
+        "durationLength": "0",
+        "silenceDetection": "nothing",
+        "silenceDuration": "2.0",
+        "silenceThreshold": "2.0",
+        "outputFormat": "stream",
+        "manualPath": "teste",
+        "debugOutput": false,
+        "x": 550,
+        "y": 520,
+        "wires": [
+            [
+                "0eb96c42a8834559"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7c333a6f882aedb5",
+        "type": "inject",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "x": 190,
+        "y": 520,
+        "wires": [
+            [
+                "59c37b82bd65ab0b"
+            ]
+        ]
+    },
+    {
+        "id": "18161220ce780107",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Stop",
+        "func": "msg.payload = 'stop';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 640,
+        "wires": [
+            [
+                "a7606901d30ac506"
+            ]
+        ]
+    },
+    {
+        "id": "1dcdf373c367eff8",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Resposta",
+        "func": "msg.payload = \"Olá, eu sou a Alecsa, qual é o seu comando ?\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 580,
+        "wires": [
+            [
+                "0bbdc8b1ca40717f"
+            ]
+        ]
+    },
+    {
+        "id": "0bbdc8b1ca40717f",
+        "type": "watson-text-to-speech",
+        "z": "9671b54b6cfc012b",
+        "name": "IBM TTS",
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "pt-BR_IsabelaV3Voice",
+        "voicehidden": "",
+        "format": "audio/wav",
+        "password": "",
+        "apikey": "48hGfJdhRjUum-zlG9XkuPkMPyriqodqxxP60Y_g3gf5",
+        "payload-response": true,
+        "service-endpoint": "https://api.au-syd.text-to-speech.watson.cloud.ibm.com/instances/6b940096-7ac2-4e92-8f2e-f572623051bc",
+        "x": 940,
+        "y": 580,
+        "wires": [
+            [
+                "bd52f01d27430e64"
+            ]
+        ]
+    },
+    {
+        "id": "bd52f01d27430e64",
+        "type": "sox-play",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "outputDevice": "default",
+        "manualOutput": "",
+        "gain": "0",
+        "startNew": "skip",
+        "playStream": false,
+        "inputEncoding": "signed-integer",
+        "inputChannels": 1,
+        "inputRate": 16000,
+        "inputBits": 16,
+        "debugOutput": false,
+        "x": 1140,
+        "y": 580,
+        "wires": [
+            [
+                "7c383416018ca9e6"
+            ]
+        ]
+    },
+    {
+        "id": "8c62130a9c18c6ee",
+        "type": "sox-record",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "buttonStart": "msg",
+        "inputs": 1,
+        "inputSource": "default",
+        "manualSource": "",
+        "inputEncoding": "signed-integer",
+        "inputChannels": 1,
+        "inputRate": 16000,
+        "inputBits": 16,
+        "byteOrder": "-L",
+        "encoding": "signed-integer",
+        "channels": 1,
+        "rate": 16000,
+        "bits": 16,
+        "gain": "0",
+        "buffer": "4096",
+        "showDuration": false,
+        "durationType": "forever",
+        "durationLength": "0",
+        "silenceDetection": "nothing",
+        "silenceDuration": "2.0",
+        "silenceThreshold": "2.0",
+        "outputFormat": "wav",
+        "manualPath": "",
+        "debugOutput": false,
+        "x": 730,
+        "y": 740,
+        "wires": [
+            [
+                "bab1c305cfb91dd4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7c383416018ca9e6",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Start",
+        "func": "if(msg.payload == \"complete\") {\n    msg.payload = \"start\"\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 740,
+        "wires": [
+            [
+                "8c62130a9c18c6ee",
+                "df6ef2e80af13a13"
+            ]
+        ]
+    },
+    {
+        "id": "bab1c305cfb91dd4",
+        "type": "watson-speech-to-text",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "alternatives": 1,
+        "speakerlabels": true,
+        "smartformatting": false,
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "custom-weight": "0.5",
+        "band": "BroadbandModel",
+        "bandhidden": "",
+        "keywords": "",
+        "keywords-threshold": "0.5",
+        "word-confidence": false,
+        "password": "",
+        "apikey": "uvNxudePfxZmawVUGPpuMAnDFwWqplw7IIOpzKYsV5ud",
+        "payload-response": true,
+        "streaming-mode": false,
+        "streaming-mute": true,
+        "auto-connect": false,
+        "discard-listening": false,
+        "disable-precheck": false,
+        "service-endpoint": "https://api.us-east.speech-to-text.watson.cloud.ibm.com/instances/beb2c054-f8de-4925-80bf-8652bfb6f622",
+        "x": 940,
+        "y": 740,
+        "wires": [
+            [
+                "ca694fcfc96dd324",
+                "223e416fc8ee651c"
+            ]
+        ]
+    },
+    {
+        "id": "ca694fcfc96dd324",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "df6ef2e80af13a13",
+        "type": "delay",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 460,
+        "y": 840,
+        "wires": [
+            [
+                "b9163bb7a85c9fe1"
+            ]
+        ]
+    },
+    {
+        "id": "b9163bb7a85c9fe1",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Stop",
+        "func": "msg.payload = 'stop';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 840,
+        "wires": [
+            [
+                "8c62130a9c18c6ee"
+            ]
+        ]
+    },
+    {
+        "id": "223e416fc8ee651c",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Comando",
+        "func": "let partes = msg.payload.split(\" \");\nmsg.payload = {};\nlet comando;\nlet lugar;\n\nfor (let i = 0; i < partes.length; i++) {\n    if (partes[i] == \"ligar\") {\n        comando = \"ligar\";\n        break;\n    } else if (partes[i] == \"desligar\") {\n        comando = \"desligar\";\n        break;\n    } else if (partes[i] == \"temperatura\") {\n        comando = \"temperatura\";\n        break;\n    } else if (partes[i] == \"umidade\") {\n        comando = \"umidade\";\n        break;\n    } else if (partes[i] == \"desativar\") {\n        comando = \"parar\";\n        break;\n    } else {\n        comando = undefined;\n    }\n}\n\nfor (let i = 0; i < partes.length; i++) {\n    if (partes[i] == \"sala\") {\n        lugar = \"sala\";\n        break;\n    } else if (partes[i] == \"desativar\") {\n        lugar = \"parar\";\n        break;\n    } else {\n        lugar = undefined;\n    }\n}\n\nif(comando && lugar) {\n    msg.payload.comando = comando;\n    msg.payload.lugar = lugar;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 740,
+        "wires": [
+            [
+                "cb1aed5ee005db16",
+                "ae06be4497ef5a7f"
+            ]
+        ]
+    },
+    {
+        "id": "cb1aed5ee005db16",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "ae06be4497ef5a7f",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Caminho",
+        "func": "let msg2 = {};\n\nif (msg.payload) {\n    if (msg.payload.comando == 'parar') {\n        msg.payload = \"Certo, muito obrigada\";\n        msg2.payload = 0;\n    } else if (msg.payload.comando == \"ligar\" && msg.payload.lugar == \"sala\") {\n        msg.payload = \"Ligando a luz da sala\";\n        msg2.payload = 1;\n    } else if (msg.payload.comando == \"desligar\" && msg.payload.lugar == \"sala\") {\n        msg.payload = \"Desligando a luz da sala\";\n        msg2.payload = 2;\n    } else if (msg.payload.comando == \"temperatura\" && msg.payload.lugar == \"sala\") {\n        let temperatura = flow.get(\"TemperaturaSala\");\n        msg.payload = \"A temperatura da sala é\" + temperatura + \"graus célsius\";\n        msg2.payload = undefined;\n    } else if (msg.payload.comando == \"umidade\" && msg.payload.lugar == \"sala\") {\n        let humidade = flow.get(\"UmidadeSala\");\n        msg.payload = \"A umidade da sala é de\" + humidade + \" porcento\";\n        msg2.payload = undefined;\n    } else {\n        msg.payload = \"Não entendi, você poderia repetir ?\"\n        msg2.payload = \"complete\"\n    }\n} else {\n    msg.payload = \"Não entendi, você poderia repetir ?\"\n    msg2.payload = \"complete\"\n}\nreturn [msg, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 740,
+        "wires": [
+            [
+                "0b02e8335deadb3d"
+            ],
+            [
+                "63719e91166b922e",
+                "9a746cce5186e159",
+                "59c37b82bd65ab0b",
+                "5cb855fcc45b4517"
+            ]
+        ]
+    },
+    {
+        "id": "63719e91166b922e",
+        "type": "delay",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 260,
+        "y": 800,
+        "wires": [
+            [
+                "7c383416018ca9e6"
+            ]
+        ]
+    },
+    {
+        "id": "0b02e8335deadb3d",
+        "type": "watson-text-to-speech",
+        "z": "9671b54b6cfc012b",
+        "name": "IBM TTS",
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "pt-BR_IsabelaV3Voice",
+        "voicehidden": "",
+        "format": "audio/wav",
+        "password": "",
+        "apikey": "48hGfJdhRjUum-zlG9XkuPkMPyriqodqxxP60Y_g3gf5",
+        "payload-response": true,
+        "service-endpoint": "https://api.au-syd.text-to-speech.watson.cloud.ibm.com/instances/6b940096-7ac2-4e92-8f2e-f572623051bc",
+        "x": 1520,
+        "y": 740,
+        "wires": [
+            [
+                "2b133db28b9e55b0"
+            ]
+        ]
+    },
+    {
+        "id": "2b133db28b9e55b0",
+        "type": "sox-play",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "outputDevice": "default",
+        "manualOutput": "",
+        "gain": "0",
+        "startNew": "skip",
+        "playStream": false,
+        "inputEncoding": "signed-integer",
+        "inputChannels": 1,
+        "inputRate": 16000,
+        "inputBits": 16,
+        "debugOutput": false,
+        "x": 1680,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9a746cce5186e159",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "59c37b82bd65ab0b",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Start",
+        "func": "if(msg.payload != \"complete\") {\n    msg.payload = \"start\"\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 520,
+        "wires": [
+            [
+                "a7606901d30ac506"
+            ]
+        ]
+    },
+    {
+        "id": "d7f85b809ff9305c",
+        "type": "ui_led",
+        "z": "9671b54b6cfc012b",
+        "order": 1,
+        "group": "285a53ef32013db2",
+        "width": 0,
+        "height": 0,
+        "label": "Luz da Sala",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#000000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#0000ff",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 1750,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "5cb855fcc45b4517",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Luz Sala Voz",
+        "func": "if (msg.payload == 1) {\n    msg.payload = \"ON\";\n    return msg;\n} else if (msg.payload == 2) {\n    msg.payload = \"OFF\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"LuzSala\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 860,
+        "wires": [
+            [
+                "72844ab846d345d1"
+            ]
+        ]
+    },
+    {
+        "id": "250d7130c5a372d2",
+        "type": "mqtt in",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "topic": "lights",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "421bf6d3021adea9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1310,
+        "y": 1000,
+        "wires": [
+            [
+                "4b44d07a9141387e",
+                "015e31ee87bf686a"
+            ]
+        ]
+    },
+    {
+        "id": "38d69fdf1bfdc149",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1730,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "4b44d07a9141387e",
+        "type": "function",
+        "z": "9671b54b6cfc012b",
+        "name": "Luz Sala App",
+        "func": "if (msg.payload == \"ON\") {\n    msg.payload = true;\n    flow.set(\"LuzSala\", true);\n    return msg;\n} else if (msg.payload == \"OFF\") {\n    msg.payload = false;\n    flow.set(\"LuzSala\", false);\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"LuzSala\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 1000,
+        "wires": [
+            [
+                "d7f85b809ff9305c",
+                "38d69fdf1bfdc149"
+            ]
+        ]
+    },
+    {
+        "id": "72844ab846d345d1",
+        "type": "mqtt out",
+        "z": "9671b54b6cfc012b",
+        "name": "",
+        "topic": "lights",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "421bf6d3021adea9",
+        "x": 1750,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "015e31ee87bf686a",
+        "type": "debug",
+        "z": "9671b54b6cfc012b",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "421bf6d3021adea9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "285a53ef32013db2",
+        "type": "ui_group",
+        "name": "Sala",
+        "tab": "3e525fb037dc6e0c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0e03cb474a14c5c7",
+        "type": "wakeword-config",
+        "name": "Alexa",
+        "files": [
+            "/home/touch/Documentos/Alexa"
+        ]
+    },
+    {
+        "id": "3e525fb037dc6e0c",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
